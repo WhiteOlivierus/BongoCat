@@ -14,7 +14,19 @@ public class AudioBeatMapGenerator : MonoBehaviour {
 	void Update () {
 		timer -= Time.deltaTime;
 		if (timer <= 0f) {
-			GameObject go = Instantiate (bongoCats [0]);
+			int value = Mathf.RoundToInt (AudioPeer._freqBand [5]);
+			int bongoToHit = 0;
+			if (value < 5) {
+				if (bongoToHit == 2) {
+					bongoToHit = 1;
+				} else {
+					bongoToHit = 2;
+				}
+			} else {
+				bongoToHit = 0;
+			}
+			print (bongoToHit);
+			GameObject go = Instantiate (bongoCats [bongoToHit]);
 			timer = 60f / bpm;
 		}
 	}
