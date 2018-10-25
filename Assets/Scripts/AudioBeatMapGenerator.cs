@@ -6,7 +6,7 @@ public class AudioBeatMapGenerator : MonoBehaviour {
 	public GameObject [] bongoCats;
 
 	private float timer;
-
+	private int bongoToHit = 0;
 	void start () {
 		timer = 60f / bpm;
 	}
@@ -15,8 +15,7 @@ public class AudioBeatMapGenerator : MonoBehaviour {
 		timer -= Time.deltaTime;
 		if (timer <= 0f) {
 			int value = Mathf.RoundToInt (AudioPeer._freqBand [5]);
-			int bongoToHit = 0;
-			if (value < 5) {
+			if (value < 3) {
 				if (bongoToHit == 2) {
 					bongoToHit = 1;
 				} else {
@@ -26,7 +25,8 @@ public class AudioBeatMapGenerator : MonoBehaviour {
 				bongoToHit = 0;
 			}
 			print (bongoToHit);
-			GameObject go = Instantiate (bongoCats [bongoToHit]);
+			GameObject go = Instantiate (bongoCats [bongoToHit], transform.position, Quaternion.identity);
+			go.name = go.name.Replace ("(Clone)", "");
 			timer = 60f / bpm;
 		}
 	}
